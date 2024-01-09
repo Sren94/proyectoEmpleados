@@ -1,5 +1,5 @@
 from django.db import models
-from ..dep.models import Dep
+from ..dep.models import dep
 # Create your models here.
 class skills(models.Model):
     skill = models.CharField('Habilidad', max_length=50)
@@ -11,7 +11,7 @@ class skills(models.Model):
         ordering=['skill']
     def __str__(self):
         return self.skill # TODO
-class Empleado(models.Model):
+class employee(models.Model):
     firstName=models.CharField("Nombre(s)", max_length=60)
     lastName = models.CharField('Apellido(s)', max_length=60)
     email = models.EmailField('Email', max_length=50,unique=True)
@@ -28,7 +28,7 @@ class Empleado(models.Model):
         ('4','otro')
     )
     job = models.CharField('Puesto', max_length=1,choices=JOB_CHOICES)
-    dep = models.ForeignKey(Dep, on_delete=models.CASCADE)
+    dep = models.ForeignKey(dep, on_delete=models.CASCADE)
     skill = models.ManyToManyField(skills)
     #FOTO = models.ImageField('Foto', upload_to=None, height_field=None, width_field=None, max_length=None)
     class Meta:
@@ -36,7 +36,7 @@ class Empleado(models.Model):
         managed = True
         verbose_name = 'employee'
         verbose_name_plural = 'employees'
-        ordering=['firstName','lastName','email']
+        ordering=['id','firstName','lastName','email','dep']
         unique_together=('email',)
         
     def __str__(self):

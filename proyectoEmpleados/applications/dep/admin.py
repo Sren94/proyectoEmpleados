@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Dep
+from .models import dep
 # Register your models here.
-admin.site.register(Dep)
+admin.site.register(dep)

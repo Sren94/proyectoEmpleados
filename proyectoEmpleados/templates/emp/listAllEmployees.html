@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados</title>
+</head>
+<body>
+    
+    <h1>hola desde empleado</h1>
+    <ul>
+    {% for employee in employees  %}
+    <li>{{employee.firstName}}</li>
+    {% endfor %}
+    </ul>
+    <table style="border: 1px solid;">
+        <tr style="border: 1px solid;">
+            <td>ID</td>
+            <td>Nombre(s)</td>
+            <td>Apellido(s)</td>
+            <td>Email</td>
+        </tr>
+        {% for employee in employees  %}
+          <tr style="border: 1px solid;">
+            <td>{{employee.id}}</td>
+            <td>{{employee.firstName}}</td>
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.email}}</td>
+          </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

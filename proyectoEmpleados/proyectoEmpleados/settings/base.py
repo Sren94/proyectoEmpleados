@@ -10,10 +10,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #app locales
+    #apps locales
     'applications.dep',
     'applications.emp',
     'applications.home',
+    #apps terceros
+    'django_ckeditor_5',
 ]
 SECRET_KEY = 'django-insecure-_o03u2%gvf@b7c_u6q@a2u)0r2p=%rz5kyve-(-wkmgfv)+$8b'
 MIDDLEWARE = [
