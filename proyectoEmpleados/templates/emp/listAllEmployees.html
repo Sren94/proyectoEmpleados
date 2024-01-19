@@ -8,17 +8,19 @@
 <body>
     
     <h1>hola desde empleado</h1>
-    <ul>
+    <!-- <ul>
     {% for employee in employees  %}
     <li>{{employee.firstName}}</li>
     {% endfor %}
-    </ul>
+    </ul> -->
+
     <table style="border: 1px solid;">
         <tr style="border: 1px solid;">
-            <td>ID</td>
-            <td>Nombre(s)</td>
-            <td>Apellido(s)</td>
-            <td>Email</td>
+          <td>ID</td>
+          <td>Nombre(s)</td>
+          <td>Apellido(s)</td>
+          <td>Email</td>
+          <td>Dep</td>
         </tr>
         {% for employee in employees  %}
           <tr style="border: 1px solid;">
@@ -26,8 +28,34 @@
             <td>{{employee.firstName}}</td>
             <td>{{employee.lastName}}</td>
             <td>{{employee.email}}</td>
+            <td>{{employee.dep}}</td>
           </tr>
         {% endfor %}
     </table>
+    {% if is_paginated %}
+  <nav aria-label="Page navigation">
+    <ul style="display: flex; gap: 1em; list-style: none;">
+      {% if page_obj.has_previous %}
+        <li class="page-item ">
+          <a  href="?page={{ page_obj.previous_page_number }}"><</a>
+        </li>
+        
+      {% endif %}
+      {% for i in paginator.page_range %}
+        <li>
+          <a href="?page={{ i }}">{{ i }}</a>
+        </li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <li >
+          <a  href="?page={{ page_obj.next_page_number }}">></a>
+        </li>
+      {% else %}
+       
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+    
 </body>
 </html>

@@ -21,11 +21,12 @@ class employee(models.Model):
     # ingeniero 
     # otro
     JOB_CHOICES=(
-        ('0','contador'),
-        ('1','administrador'),
-        ('2','economista'),
-        ('3','ingeniero'),
-        ('4','otro')
+        ('0','Ingeniero'),
+        ('1','Practicante'),
+        ('2','Administrador'),
+        ('3','Contador'),
+        ('4','RH'),
+        ('5','Cliente')
     )
     job = models.CharField('Puesto', max_length=1,choices=JOB_CHOICES)
     dep = models.ForeignKey(dep, on_delete=models.CASCADE)
