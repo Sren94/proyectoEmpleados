@@ -7,16 +7,17 @@
 </head>
 <body>
     <h2>Buscador</h2>
-    <form method="get"> {% csrf_token %}
-        <label for="search">Buscador:</label>
-        <input type="text" id="search" name="search" class="search">
-        <input type="submit" value="Enviar">
-    </form>
+    
     <h2>Empleado</h2>
     
     {% for e in employees %}
        {{e}}
     {% endfor %}
+    <form method="get"> {% csrf_token %}
+        <label for="search">Buscador:</label>
+        <input type="text" id="search" name="search" class="search">
+        <input type="submit" value="Enviar">
+    </form>
         
 </body>
 </html>

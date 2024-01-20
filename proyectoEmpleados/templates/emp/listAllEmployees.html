@@ -33,10 +33,10 @@
         {% endfor %}
     </table>
     {% if is_paginated %}
-  <nav aria-label="Page navigation">
+  <nav>
     <ul style="display: flex; gap: 1em; list-style: none;">
       {% if page_obj.has_previous %}
-        <li class="page-item ">
+        <li>
           <a  href="?page={{ page_obj.previous_page_number }}"><</a>
         </li>
         

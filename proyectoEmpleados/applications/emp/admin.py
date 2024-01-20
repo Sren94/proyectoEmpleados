@@ -5,6 +5,7 @@ from .models import employee,skills
 
 class employeeAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'firstName',
         'lastName',
         'email',
