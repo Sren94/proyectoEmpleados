@@ -12,8 +12,10 @@ class skills(models.Model):
     def __str__(self):
         return self.skill # TODO
 class employee(models.Model):
+    #aqui se crea los campos del modelo y dentro del los campos se especidica los datos
     firstName=models.CharField("Nombre(s)", max_length=60)
     lastName = models.CharField('Apellido(s)', max_length=60)
+    fullName = models.CharField("Nombre Completo",max_length=120,blank=True)
     email = models.EmailField('Email', max_length=50,unique=True)
     # contador
     # administrador
