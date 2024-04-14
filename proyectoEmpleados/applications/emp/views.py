@@ -1,17 +1,16 @@
-from django.shortcuts import render
 from .models import employee
-from django.views.generic import (ListView,DetailView,CreateView,TemplateView)
+from django.views.generic import (ListView,DetailView,CreateView,TemplateView,UpdateView,DeleteView)
 from django.urls import reverse_lazy
 # Create your views here.
 
 #la listView sirve para mostrar datos
-class listAllEmployees(ListView):
+class listAllEmployeesListView(ListView):
     model = employee
     context_object_name = 'employees'
     template_name='emp/listAllEmployees.html'
     paginate_by=5
     ordering='id'
-class listByArea(ListView):
+class listByAreaListView(ListView):
     model = employee
     template_name='emp/listByarea.html'
     def get_queryset(self):
@@ -21,7 +20,7 @@ class listByArea(ListView):
     
     #employee.objects.filter(dep__name=var)
     context_object_name = 'employees'
-class listBySearch(ListView):
+class listBySearchListView(ListView):
     model = employee
     template_name = "emp/search.html"
     context_object_name='employees'
@@ -32,7 +31,7 @@ class listBySearch(ListView):
         list= employee.objects.filter(firstName=search)
         print(list)
         return list
-class skillsEmployee(ListView):
+class skillsEmployeeListView(ListView):
     model = employee
     template_name = "emp/listSkills.html"
     context_object_name = 'skills'
@@ -71,6 +70,7 @@ class employeeCreateView(CreateView):
         'job',
         'dep',
         'skill']
+    #cuando el forms esta validado se sobreescribre el proceso
     def form_valid(self, form):
         #logica del proceso
         employee=form.save()
@@ -86,4 +86,31 @@ class employeeCreateView(CreateView):
     #se redirecciona de la sig forma app_name:nombreDeLaVista 
     success_url= reverse_lazy('emp_app:success')
 
+class employeeUpdateView(UpdateView):
+    model = employee
+    template_name = "emp/updateEmployee.html"
+    fields=['dep','job','email']
+    success_url =reverse_lazy('emp_app:success')
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        #tambien sera el manejo de procesos en este metodo
+        #request = maneja todo lo relacionado a los metodos http y asi
+        #obtener sus propiedades y lo maneja de manera de diccionario 
+        
+        print(request.POST)
+        #aqui se es el manejo de atributos 
+        print(request.POST['email'])
+        
+        return super().post(request, *args, **kwargs)
     
+    def form_valid(self, form):
+        print('Metodo Self')
+        return super().form_valid(form)
+    
+class employeeDeleteView(DeleteView):
+    model = employee
+    template_name = "emp/deleteEmployee.html"
+    success_url =reverse_lazy('emp_app:success')
+
+
+

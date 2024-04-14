@@ -1,23 +1,29 @@
 from django.contrib import admin
 from django.urls import path
-from .views import listAllEmployees,listByArea,listBySearch,skillsEmployee,employeeDetailView,employeeCreateView,successView
+from .views import listAllEmployeesListView,listByAreaListView,listBySearchListView,skillsEmployeeListView,employeeDetailView,employeeCreateView,successView,employeeUpdateView,employeeDeleteView
 app_name ='emp_app'
 urlpatterns = [
+    #path
+    # (
+         #nombreParaLaURL#,
+         #vista.as_view(),
+         #nombre='nombreDeLaVista'    
+    #)
     path(
         'allEmployees/',
-        listAllEmployees.as_view(),
+        listAllEmployeesListView.as_view(),
         name='allEmployees'),
     
     path('byArea/<var>/',
-         listByArea.as_view(),
+         listByAreaListView.as_view(),
          name='byArea'),
     
     path("search/"
-         ,listBySearch.as_view(),
+         ,listBySearchListView.as_view(),
          name='search'),
     
     path('skills/',
-         skillsEmployee.as_view(),
+         skillsEmployeeListView.as_view(),
          name='skills'),
     
     path('detail/<pk>',
@@ -30,5 +36,15 @@ urlpatterns = [
     
     path('success/',
          successView.as_view(),
-         name='success')
+         name='success'),
+    path(
+     'update/<pk>',
+     employeeUpdateView.as_view(),
+     name='update'
+    ),
+    path(
+     'delete/<pk>',
+     employeeDeleteView.as_view(),
+     name='detele'
+    ),
 ]
