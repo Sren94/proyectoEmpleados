@@ -1,34 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empleado Por Area</title>
-</head>
-<body>
-    <h1>Empleado por area</h1>
-    {% for employee in employees %}
-      {{employee.firstName}}
-      {{employee.lastName}}
-      {{employee.dep}}
-    {% endfor %}
-    <table>
-        <tr>
+{%extends 'base.html'%}
+
+{%block title%}
+Lista Emp
+{%endblock title%}
+{%block content%}
+
+<!-- <ul>
+{% for employee in employees  %}
+<li>{{employee.firstName}}</li>
+{% endfor %}
+</ul> -->
+{%include 'includes/header.html'%}
+<div class="grid-container">
+  <div class="grix-x">    
+    <h2 class="cell">Lista De Empleados En Area: </h2>
+    <div class="cell grid-x grid-margin-x">
+      <div class="cell">
+        <table>
+          <tr>
             <td>ID</td>
             <td>Nombre(s)</td>
             <td>Apellido(s)</td>
-            <td>Area</td>
-        </tr>
-        
-            {% for employee in employees %}
-            <tr>
-              <td>{{employee.id}}</td>
-              <td>{{employee.firstName}}</td>
-              <td>{{employee.lastName}}</td>
-              <td>{{employee.dep}}</td>
-            </tr>
-            {% endfor %}
-        
-    </table>
-</body>
-</html>
+            <td>Email</td>
+            <td>Accion</td>
+          </tr>
+          {% for employee in employees %}
+          <tr>
+            <td>{{employee.id}}</td>
+            <td>{{employee.firstName}}</td>
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.email}}</td>
+            <td>
+              <a class="button primary" href="{%url 'emp_app:update' employee.id%}" id="emp_view"
+                name="emp_view">Modificar</a>
+                <a class="button alert" href="{%url 'emp_app:delete' employee.id%}" id="emp_delete" 
+                name="emp_delete">Eliminar</a>
+              </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  {% if is_paginated %}
+  <nav>
+    <ul class="pagination text-center">
+      {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number}}" aria-label="Page">Antes</a></li>
+
+      {% endif %}
+      {% for i in paginator.page_range %}
+
+
+      {% if i == page_obj.number %}
+
+      <li class="current"><span class="show-for-sr"></span>{{i}}</li>
+      {% else %}
+      <li><a href="?page={{i}}" aria-label="Page">{{i}}</a></li>
+      {% endif %}
+
+
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <li>
+        <a href="?page={{ page_obj.next_page_number }}">Siguiente
+      </li>
+      {% else %}
+
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+
+  {%endblock content%}

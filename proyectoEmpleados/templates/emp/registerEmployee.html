@@ -1,15 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-</head>
-<body>
-    <h2>Registrate </h2>
-    <form method="POST" >  {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Registrar</button>
+{% extends 'base.html'%}
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+<div class="grid-container">
+    <h2>Registratar Un empleado </h2>
+
+    <form method="POST" class="grid-x grid-margin-x" enctype="multipart/form-data"> {% csrf_token %}
+        <div class="cell medium-4"> 
+            <label>Nombre:
+                {{form.firstName}}
+              </label>
+        </div>
+        <div class="cell medium-4">
+            <label>Apellido(s):
+                {{form.lastName}}
+              </label>
+        </div>
+        <div class="cell medium-4">
+            <label>Email:
+                {{form.email}}
+              </label>
+        </div>
+        <div class="cell medium-4">
+            <label>Puesto: 
+                {{form.job}}
+              </label>
+        </div>
+        <div class="cell medium-4">
+            <label>Departamento:
+                {{form.dep}}
+              </label>
+        </div>
+        <div class="cell medium-12">
+            <label>Habilidades:
+                {{form.skill}}
+              </label>
+        </div>
+        <div class="cell medium-12">
+            <label>Fotografia:
+                {{form.photo}}
+              </label>
+        </div>
+        <div class="cell medium-12">
+            <button style="color: #fff;" class="button success" type="submit">Registrar</button>
+
+        </div>
     </form>
-</body>
-</html>
+
+</div>
+
+{% endblock content %}

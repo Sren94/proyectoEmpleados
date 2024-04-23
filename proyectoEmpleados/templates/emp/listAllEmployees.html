@@ -1,61 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empleados</title>
-</head>
-<body>
-    
-    <h1>hola desde empleado</h1>
-    <!-- <ul>
-    {% for employee in employees  %}
-    <li>{{employee.firstName}}</li>
-    {% endfor %}
-    </ul> -->
+{%extends 'base.html'%}
 
-    <table style="border: 1px solid;">
-        <tr style="border: 1px solid;">
-          <td>ID</td>
-          <td>Nombre(s)</td>
-          <td>Apellido(s)</td>
-          <td>Email</td>
-          <td>Dep</td>
-        </tr>
-        {% for employee in employees  %}
-          <tr style="border: 1px solid;">
+{%block title%}
+Lista Emp
+{%endblock title%}
+{%block content%}
+
+<!-- <ul>
+{% for employee in employees  %}
+<li>{{employee.firstName}}</li>
+{% endfor %}
+</ul> -->
+{%include 'includes/header.html'%}
+<div class="grid-container">
+  <div class="grix-x">
+    <h2 class="cell">Lista De Empleados</h2>
+    <div class="cell grid-x grid-margin-x">
+      <form method="get" class=" grid-x grid-margin-x">{%csrf_token%}
+        <div class="cell large-10">
+          <input type="text" name="search_emp" id="search_emp" placeholder="Buscar Empleado Por Nombre">
+        </div>
+        <div class="cell large-2">
+          <button class="button success" id="search" name="search" type="submit">Buscar</button>
+        </div>
+      </form>
+      <div class="cell">
+        <table>
+          <tr>
+            <td>ID</td>
+            <td>Nombre(s)</td>
+            <td>Apellido(s)</td>
+            <td>Email</td>
+            <td>Dep</td>
+            <td>Accion</td>
+          </tr>
+          {% for employee in employees %}
+          <tr>
             <td>{{employee.id}}</td>
             <td>{{employee.firstName}}</td>
             <td>{{employee.lastName}}</td>
             <td>{{employee.email}}</td>
             <td>{{employee.dep}}</td>
+            <td><a class="button warning" href="{%url 'emp_app:detail' employee.id%}" id="emp_view"
+                name="emp_view">Ver</a></td>
           </tr>
-        {% endfor %}
-    </table>
-    {% if is_paginated %}
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  {% if is_paginated %}
   <nav>
-    <ul style="display: flex; gap: 1em; list-style: none;">
+    <ul class="pagination text-center">
       {% if page_obj.has_previous %}
-        <li>
-          <a  href="?page={{ page_obj.previous_page_number }}"><</a>
-        </li>
-        
+      <li><a href="?page={{ page_obj.previous_page_number}}" aria-label="Page">Antes</a></li>
+
       {% endif %}
       {% for i in paginator.page_range %}
-        <li>
-          <a href="?page={{ i }}">{{ i }}</a>
-        </li>
+
+
+      {% if i == page_obj.number %}
+
+      <li class="current"><span class="show-for-sr"></span>{{i}}</li>
+      {% else %}
+      <li><a href="?page={{i}}" aria-label="Page">{{i}}</a></li>
+      {% endif %}
+
+
       {% endfor %}
       {% if page_obj.has_next %}
-        <li >
-          <a  href="?page={{ page_obj.next_page_number }}">></a>
-        </li>
+      <li>
+        <a href="?page={{ page_obj.next_page_number }}">Siguiente
+      </li>
       {% else %}
-       
+
       {% endif %}
     </ul>
   </nav>
-{% endif %}
-    
-</body>
-</html>
+  {% endif %}
+
+  {%endblock content%}

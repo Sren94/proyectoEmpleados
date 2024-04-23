@@ -1,17 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Eliminar un empleado</h2>
-    <p>Estas Seguro De Eliminar a  "{{ object.firstName }}"?</p>
+{%extends 'base.html'%}
+{%load static%}
+{% block title %}
+Eliminar Empleado
+{% endblock title %}
 
-    <form method="post">{% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Confirm">
-    </form>
-</body>
-</html>
+{% block content %}
+{%include 'includes/header.html'%}
+
+<form method="post">{% csrf_token %}
+    <div class="grid-container align-center grid-x">
+      <div class="card small-4 "> 
+          <div class="card-divider grid-x">
+            <h4 class="cell">{{object.firstName}} {{object.lastName}}</h4>
+            <p class="cell">Estas Seguro De Eliminar A Este Empleado?</p>
+          </div>
+          <img src="/static/img/forest.webp">
+          <div class="card-section  grid-y grid-padding-x align-center-middle text-center">
+              <p class="cell">Email: {{employee.email}}</p>
+              <p  class="cell">Departamento: {{employee.dep}}</p>
+              <div class="card-section cell small-12">
+                <input class="alert button" type="submit" value="Confirmar">
+              </div>
+          </div>
+          
+      </div>
+  
+  </div>
+   
+    
+</form>
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import listAllEmployeesListView,listByAreaListView,listBySearchListView,skillsEmployeeListView,employeeDetailView,employeeCreateView,successView,employeeUpdateView,employeeDeleteView
+from . import views
 app_name ='emp_app'
 urlpatterns = [
     #path
@@ -10,41 +10,47 @@ urlpatterns = [
          #nombre='nombreDeLaVista'    
     #)
     path(
+        "",
+        views.indexTemplate.as_view(),
+        name="index"
+    ),
+    
+    path(
         'allEmployees/',
-        listAllEmployeesListView.as_view(),
+         views.listAllEmployeesListView.as_view(),
         name='allEmployees'),
     
     path('byArea/<var>/',
-         listByAreaListView.as_view(),
+         views.listByAreaListView.as_view(),
          name='byArea'),
     
-    path("search/"
-         ,listBySearchListView.as_view(),
+    path("search/",
+         views.listBySearchListView.as_view(),
          name='search'),
     
     path('skills/',
-         skillsEmployeeListView.as_view(),
+         views.skillsEmployeeListView.as_view(),
          name='skills'),
     
     path('detail/<pk>',
-         employeeDetailView.as_view(),
+         views.employeeDetailView.as_view(),
          name='detail'),
     
     path('register/',
-         employeeCreateView.as_view(),
+         views.employeeCreateView.as_view(),
          name='register'),
     
     path('success/',
-         successView.as_view(),
+         views.successView.as_view(),
          name='success'),
     path(
-     'update/<pk>',
-     employeeUpdateView.as_view(),
-     name='update'
+         'update/<pk>',
+          views.employeeUpdateView.as_view(),
+          name='update'
     ),
     path(
      'delete/<pk>',
-     employeeDeleteView.as_view(),
-     name='detele'
+     views.employeeDeleteView.as_view(),
+     name='delete'
     ),
 ]

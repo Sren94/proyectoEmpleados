@@ -1,22 +1,47 @@
 from .models import employee
 from django.views.generic import (ListView,DetailView,CreateView,TemplateView,UpdateView,DeleteView)
+
 from django.urls import reverse_lazy
+#forms
+from .forms import employeeForm
 # Create your views here.
 
+
 #la listView sirve para mostrar datos
+class indexTemplate(TemplateView):
+    template_name = "index.html"
+
 class listAllEmployeesListView(ListView):
-    model = employee
     context_object_name = 'employees'
     template_name='emp/listAllEmployees.html'
-    paginate_by=5
+    paginate_by=5   
     ordering='id'
+    def get_queryset(self):
+        #print('++++++++++++++++++++++++++++')
+        search = self.request.GET.get('search_emp','')
+        print(f'{search}')
+        list= employee.objects.filter(
+            #aqui hace una busqueda al momento de enlazar la peticion
+            firstName__icontains=search
+            )
+        #print(list)
+        return list
+    
 class listByAreaListView(ListView):
-    model = employee
+    
     template_name='emp/listByarea.html'
     def get_queryset(self):
         var= self.kwargs['var']
-        list =employee.objects.filter(dep__name=var)
+        list =employee.objects.filter(
+            dep__id=var
+            )
         return list
+    def get_context_data(self, **kwargs) -> dict[str, any]:
+        #manda una variable adicional al html
+        context = super(listByAreaListView,self).get_context_data(**kwargs)
+        context["Area"] = employee.dep
+        return context
+    
     
     #employee.objects.filter(dep__name=var)
     context_object_name = 'employees'
@@ -63,13 +88,7 @@ class successView(TemplateView):
 class employeeCreateView(CreateView):
     model = employee
     template_name = "emp/registerEmployee.html"
-    fields = [
-        'firstName',
-        'lastName',
-        'email',
-        'job',
-        'dep',
-        'skill']
+    form_class=employeeForm
     #cuando el forms esta validado se sobreescribre el proceso
     def form_valid(self, form):
         #logica del proceso
@@ -84,13 +103,14 @@ class employeeCreateView(CreateView):
     #fields = ('__all__')
     #se toma los parametros del archivo urls.py
     #se redirecciona de la sig forma app_name:nombreDeLaVista 
-    success_url= reverse_lazy('emp_app:success')
+    success_url= reverse_lazy('emp_app:allEmployees')
 
 class employeeUpdateView(UpdateView):
     model = employee
     template_name = "emp/updateEmployee.html"
-    fields=['dep','job','email']
-    success_url =reverse_lazy('emp_app:success')
+    
+    form_class=employeeForm
+    success_url =reverse_lazy('emp_app:allEmployees')
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         #tambien sera el manejo de procesos en este metodo
@@ -110,7 +130,7 @@ class employeeUpdateView(UpdateView):
 class employeeDeleteView(DeleteView):
     model = employee
     template_name = "emp/deleteEmployee.html"
-    success_url =reverse_lazy('emp_app:success')
+    success_url =reverse_lazy('dep_app:listDep')
 
 
 

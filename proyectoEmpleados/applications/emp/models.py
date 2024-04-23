@@ -33,7 +33,7 @@ class employee(models.Model):
     job = models.CharField('Puesto', max_length=1,choices=JOB_CHOICES)
     dep = models.ForeignKey(dep, on_delete=models.CASCADE)
     skill = models.ManyToManyField(skills)
-    #FOTO = models.ImageField('Foto', upload_to=None, height_field=None, width_field=None, max_length=None)
+    photo = models.ImageField('Foto', upload_to='empPhoto', height_field=None, width_field=None, max_length=None,blank=True,null=True)
     class Meta:
         db_table = ''
         managed = True

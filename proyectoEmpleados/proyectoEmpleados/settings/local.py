@@ -1,6 +1,6 @@
 from .base import *
 DEBUG = True
-
+import os
 ALLOWED_HOSTS = []
 DATABASES = {
     # 'default': {
@@ -17,4 +17,15 @@ DATABASES = {
         
 }
 }
+#aqui se registra para la creacion de archivos estaticos
+#como css,js etc 
+#y sirve para obtener y direccionar los recursos 
+#para el proyecto
 STATIC_URL = 'static/'
+STATICFILES_DIRS=[os.path.join(BASE_DIR, "static")]
+
+#aqui se da registro de los archivos media 
+#y esto sirve para direccionar los recursos
+#se deben de registrar en esta carpeta
+MEDIA_URL='media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')

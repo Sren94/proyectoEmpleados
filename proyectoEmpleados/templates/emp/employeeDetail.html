@@ -1,20 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles del empleado</title>
-</head>
-<body>
-    <h2>{{Titulo}}</h2>
-    <h2>Detalles De Un Empleados</h2>
-    <h3>Todos los datos</h3>
-    <p>Nombre: {{employee.firstName}}</p>
-    <p>Apellido(s) {{employee.lastName}}</p>
-    <p>Email: {{employee.email}}</p>
-    <p>Departamento: {{employee.dep}}</p>
-    <p> {{Titulo}}</p>
-    
-        
-</body>
-</html>
+{%extends 'base.html'%}
+{% load static %}
+{%block title%}
+{{object.firstName}}
+{%endblock title%}
+{%block content%}
+{%include 'includes/header.html'%}
+<div class="container align-center grid-x">
+    <div class="card small-3" style="background-color: #9f9d;">
+        <div class="card-divider row " style="background-color: #9f9d;">
+            <h2>{{object.firstName }}</h2>
+        </div>
+
+        {% if employee.photo%}
+        <img src="{{employee.photo.url}}" style="height: 20rem;">
+        {% else %} <img src="{% static 'img/pDefault.webp' %}"  style="height: 20rem;">
+        {% endif %}
+
+        <div class="card-section  grid-y grid-padding-x align-center-middle text-center">
+
+            <p class="cell">Apellido(s) {{employee.lastName}}</p>
+            <p class="cell">Email: {{employee.email}}</p>
+            <p class="cell">Departamento: {{employee.dep.shortName}}</p>
+            <p class="cell">Habilidades</p>
+            <div class="cell grid-x grid-margin-x">
+                
+                {% for h in employee.skill.all %}
+                    <p class="cell medium-4 label secondary">{{h}}</p>
+                {% endfor %}
+                    
+            </div>
+                    
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{%endblock content%}
