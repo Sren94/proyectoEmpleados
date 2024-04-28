@@ -31,6 +31,7 @@ DATABASES = {
 environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated!
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 #aqui se registra para la creacion de archivos estaticos
 #como css,js etc 
 #y sirve para obtener y direccionar los recursos 
@@ -45,6 +46,9 @@ MEDIA_URL='media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated!
+=======
+STATIC_URL = 'static/'
+>>>>>>> parent of 60cbd68 (11mo Commit)
 =======
 STATIC_URL = 'static/'
 >>>>>>> parent of 60cbd68 (11mo Commit)
