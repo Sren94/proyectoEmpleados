@@ -4,10 +4,8 @@ from .models import prueba
 from django.urls import reverse_lazy
 #importamos el modulo de forms tomando la clase pruebaForms
 from .forms import pruebaForm
-
-class pruebaCssView(TemplateView):
-    template_name= 'home/css.html'
-
+class indexView(TemplateView):
+    template_name= 'home/home.html'
     
 class pruebaListView(ListView):
     template_name ='home/prueba.html'
