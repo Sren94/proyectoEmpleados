@@ -1,7 +1,9 @@
 from .base import *
 from pathlib import Path
 import environ  # <-- Updated!
+
 import os
+
 environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated!
 env = environ.Env(  # <-- Updated!
     # set casting, default value
@@ -17,6 +19,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 DATABASES = {
+
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':env('NAME_DATABASE'),
@@ -39,5 +42,3 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR, "static")]
 MEDIA_URL='media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
-environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated!
-STATIC_URL = 'static/'

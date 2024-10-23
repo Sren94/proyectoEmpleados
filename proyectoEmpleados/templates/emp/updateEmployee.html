@@ -1,44 +1,15 @@
-{%extends 'base.html'%}
-{%block title%}
-{% load static %}
-Actualizar Empleado
-{%endblock title%}
-{%block content%}
-{%include 'includes/header.html'%}
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-    <div class="grid-container">
-        <div class="grid-x grid-padding-x">
-            <h2 class="cell">
-                Modificar Campos De: {{object.firstName}} {{object.lastName}}
-            </h2>
-
-            <div class="large-6 cell">
-                <label>Email:
-                    {{form.email}}
-                </label>
-            </div>
-            <div class="large-6 cell">
-                <label>Puesto:
-                    {{form.job}}
-                </label>
-            </div>
-            <div class="large-6 cell">
-                <label>Departamento:
-                    {{form.dep}}
-                </label>
-            </div>
-            <div class="large-12 cell ">
-                <label>Habilidad:
-                    {{form.skill}}
-                </label>
-            </div>
-            <div class="large-12 grid-x ">
-                
-            </div>
-            <div class="cell ">
-                <button class="button success" type="submit">Success</button>
-            </div>
-        </div>
-    </div>
-</form>
-{%endblock content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Actualizar un empleado</h2>
+    <form method="post"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
