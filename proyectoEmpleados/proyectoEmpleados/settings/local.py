@@ -1,31 +1,32 @@
 from .base import *
-DEBUG = True
 import os
+import environ
+
+# Cargar las variables de entorno
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# Clave secreta y configuración de depuración
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env.bool('DEBUG', default=False)
+
+# Hosts permitidos
 ALLOWED_HOSTS = []
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    #}
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'dbEmpleado',
-        'USER':'stroop94',
-        'PASSWORD':'Stroop94',
-        'HOST':'localhost',
-        'PORT':'5432',
-        
-}
-}
-#aqui se registra para la creacion de archivos estaticos
-#como css,js etc 
-#y sirve para obtener y direccionar los recursos 
-#para el proyecto
+
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR, "static")]
+#Media files
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#aqui se da registro de los archivos media 
-#y esto sirve para direccionar los recursos
-#se deben de registrar en esta carpeta
-MEDIA_URL='media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':env('NAME_DATABASE'),
+        'USER':env('DB_USER'),
+        'PASSWORD':env('DB_PASSWORD'),
+        'HOST':env('DB_HOST'),
+        'PORT':'5432',
+    }
+}
